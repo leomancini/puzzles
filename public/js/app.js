@@ -9,6 +9,8 @@ const screens = {
   game: document.getElementById('screen-game'),
 };
 
+const usernameLoader = document.getElementById('username-loader');
+const usernameForm = document.getElementById('username-form');
 const usernameInput = document.getElementById('username-input');
 const usernameSubmit = document.getElementById('username-submit');
 const displayName = document.getElementById('display-name');
@@ -120,6 +122,8 @@ document.getElementById('btn-new-game').addEventListener('click', () => {
 });
 
 document.getElementById('change-name').addEventListener('click', () => {
+  usernameLoader.style.display = 'none';
+  usernameForm.style.display = '';
   usernameInput.value = getUsername() || '';
   showScreen('username');
   usernameInput.focus();
@@ -132,6 +136,8 @@ document.getElementById('change-name').addEventListener('click', () => {
     displayName.textContent = saved;
     showScreen('select');
   } else {
+    usernameLoader.style.display = 'none';
+    usernameForm.style.display = '';
     showScreen('username');
   }
 })();

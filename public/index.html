@@ -16,7 +16,10 @@
 
   <!-- Screen 1: Username Entry -->
   <section id="screen-username" class="screen active">
-    <div class="screen-content">
+    <div id="username-loader" class="screen-content">
+      <div class="spinner"></div>
+    </div>
+    <div id="username-form" class="screen-content" style="display:none">
       <h1 class="app-title">Puzzles</h1>
       <p class="subtitle">Enter your name to get started</p>
       <input type="text" id="username-input" placeholder="Your name" maxlength="20" autocomplete="off" data-1p-ignore data-lpignore="true" data-form-type="other">

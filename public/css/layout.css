@@ -263,6 +263,20 @@ body {
   color: var(--color-text-muted);
 }
 
+/* Spinner */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-surface-raised);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 600ms linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .user-badge {
   display: flex;
   align-items: center;
