@@ -14,16 +14,19 @@
 </head>
 <body>
 
-  <!-- Screen 1: Username Entry -->
+  <!-- Screen 1: Edit Name -->
   <section id="screen-username" class="screen active">
     <div id="username-loader" class="screen-content">
       <div class="spinner"></div>
     </div>
-    <div id="username-form" class="screen-content" style="display:none">
-      <h1 class="app-title">Puzzles</h1>
-      <p class="subtitle">Enter your name to get started</p>
+    <header id="username-header" class="game-header" style="display:none">
+      <button id="btn-back-username" class="btn-icon" aria-label="Back">&#8592;</button>
+      <h1 class="game-header-title">Your Name</h1>
+      <div style="min-width:44px"></div>
+    </header>
+    <div id="username-form" class="screen-content screen-content-top" style="display:none">
       <input type="text" id="username-input" placeholder="Your name" maxlength="20" autocomplete="off" data-1p-ignore data-lpignore="true" data-form-type="other">
-      <button id="username-submit" class="btn-primary" disabled>Let's Go</button>
+      <button id="username-submit" class="btn-primary" disabled>Save</button>
     </div>
   </section>
 

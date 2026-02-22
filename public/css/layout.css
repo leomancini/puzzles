@@ -31,6 +31,11 @@ body {
   gap: var(--space-lg);
 }
 
+.screen-content-top {
+  justify-content: flex-start;
+  padding-top: var(--space-xl);
+}
+
 /* Buttons */
 .btn-primary {
   background: var(--color-primary);

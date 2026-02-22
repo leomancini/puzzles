@@ -10,9 +10,11 @@ const screens = {
 };
 
 const usernameLoader = document.getElementById('username-loader');
+const usernameHeader = document.getElementById('username-header');
 const usernameForm = document.getElementById('username-form');
 const usernameInput = document.getElementById('username-input');
 const usernameSubmit = document.getElementById('username-submit');
+const btnBackUsername = document.getElementById('btn-back-username');
 const displayName = document.getElementById('display-name');
 const gameContainer = document.getElementById('game-container');
 const timerEl = document.getElementById('timer');
@@ -42,6 +44,16 @@ if (window.visualViewport) {
 }
 
 // --- Username Screen ---
+function showUsernameScreen(canGoBack) {
+  usernameLoader.style.display = 'none';
+  usernameHeader.style.display = '';
+  usernameForm.style.display = '';
+  btnBackUsername.style.visibility = canGoBack ? 'visible' : 'hidden';
+  usernameInput.value = canGoBack ? (getUsername() || '') : '';
+  usernameSubmit.disabled = usernameInput.value.trim().length === 0;
+  showScreen('username');
+  if (canGoBack) usernameInput.focus();
+}
 
 usernameInput.addEventListener('input', () => {
   usernameSubmit.disabled = usernameInput.value.trim().length === 0;
@@ -134,11 +146,11 @@ document.getElementById('btn-new-game').addEventListener('click', () => {
 });
 
 document.getElementById('change-name').addEventListener('click', () => {
-  usernameLoader.style.display = 'none';
-  usernameForm.style.display = '';
-  usernameInput.value = getUsername() || '';
-  showScreen('username');
-  usernameInput.focus();
+  showUsernameScreen(true);
+});
+
+btnBackUsername.addEventListener('click', () => {
+  showScreen('select');
 });
 
 // --- Init ---
@@ -148,8 +160,6 @@ document.getElementById('change-name').addEventListener('click', () => {
     displayName.textContent = saved;
     showScreen('select');
   } else {
-    usernameLoader.style.display = 'none';
-    usernameForm.style.display = '';
-    showScreen('username');
+    showUsernameScreen(false);
   }
 })();
