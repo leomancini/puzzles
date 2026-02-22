@@ -185,12 +185,11 @@ body {
   flex-direction: column;
   align-items: center;
   gap: var(--space-sm);
-  transition: transform var(--transition-fast), background var(--transition-fast);
+  transition: transform var(--transition-fast);
 }
 
 .game-card:active {
   transform: scale(0.92);
-  background: var(--color-surface-raised);
 }
 
 .game-card-icon {
