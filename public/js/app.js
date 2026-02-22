@@ -30,11 +30,18 @@ function showScreen(name) {
   screens[name].classList.add('active');
 }
 
+// --- Prevent iOS visual viewport panning ---
+// iOS Safari shifts the visual viewport when focusing inputs or on overscroll.
+// position:fixed on html/body handles the layout viewport; this handles the visual viewport.
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('scroll', () => {
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
+  });
+}
+
 // --- Username Screen ---
-// Prevent iOS from panning the viewport when focusing the input
-usernameInput.addEventListener('focus', () => {
-  setTimeout(() => window.scrollTo(0, 0), 50);
-});
 
 usernameInput.addEventListener('input', () => {
   usernameSubmit.disabled = usernameInput.value.trim().length === 0;
