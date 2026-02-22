@@ -1,0 +1,45 @@
+.numpuz-board {
+  position: relative;
+  background: var(--board-bg);
+  border-radius: var(--radius-md);
+  padding: var(--tile-gap);
+  width: min(85vw, 400px);
+  max-height: calc(100vh - 200px);
+  aspect-ratio: 1;
+  touch-action: none;
+}
+
+.numpuz-tile {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--tile-font-size);
+  font-weight: var(--font-weight-bold);
+  color: var(--tile-text-color);
+  background: var(--tile-color);
+  border-radius: var(--tile-radius);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: top 150ms ease, left 150ms ease, color 200ms ease;
+}
+
+.numpuz-tile:active {
+  opacity: 0.8;
+}
+
+.numpuz-tile.correct {
+  color: var(--color-success);
+}
+
+@keyframes solved-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); background: var(--color-surface-raised); }
+  100% { transform: scale(1); background: var(--tile-color); }
+}
+
+.numpuz-tile.solved-pop {
+  animation: solved-pop 350ms ease forwards;
+  color: var(--color-success);
+}
