@@ -40,11 +40,11 @@ body {
 .btn-primary {
   background: var(--color-primary);
   color: white;
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-bold);
-  padding: var(--space-md) var(--space-xl);
+  padding: var(--space-sm) var(--space-lg);
   border-radius: var(--radius-md);
-  min-height: 52px;
+  min-height: 44px;
   width: 100%;
   max-width: 400px;
   transition: background var(--transition-fast), transform var(--transition-fast);
@@ -104,7 +104,7 @@ body {
   border: 2px solid var(--color-surface-raised);
   width: 100%;
   max-width: 400px;
-  min-height: 52px;
+  min-height: 44px;
   transition: border-color var(--transition-fast);
 }
 
@@ -189,7 +189,7 @@ body {
 }
 
 .game-card:active {
-  transform: scale(0.96);
+  transform: scale(0.92);
   background: var(--color-surface-raised);
 }
 
