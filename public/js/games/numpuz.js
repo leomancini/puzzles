@@ -110,16 +110,15 @@ export class NumPuz {
   getTilePosition(index) {
     const row = Math.floor(index / GRID_SIZE);
     const col = index % GRID_SIZE;
-    // Each cell is 25% of the board (100% / 4)
-    // Small gap via calc to leave space between tiles
-    const cellPct = 100 / GRID_SIZE;
-    const gapPx = 4;
-    return {
-      top: `calc(${row * cellPct}% + ${gapPx}px)`,
-      left: `calc(${col * cellPct}% + ${gapPx}px)`,
-      width: `calc(${cellPct}% - ${gapPx * 2}px)`,
-      height: `calc(${cellPct}% - ${gapPx * 2}px)`,
-    };
+    // gap between tiles and from edge to tile should be equal
+    const gap = 4;
+    // Total gaps: edge + (GRID_SIZE - 1) inner gaps + edge = GRID_SIZE + 1 gaps
+    // But we use percentages, so express edge as px offset and tile size subtracts its share
+    const totalGaps = GRID_SIZE + 1; // 5 gaps for 4 tiles
+    const tileSize = `calc((100% - ${totalGaps * gap}px) / ${GRID_SIZE})`;
+    const top = `calc(${gap}px + ${row} * (${tileSize} + ${gap}px))`;
+    const left = `calc(${gap}px + ${col} * (${tileSize} + ${gap}px))`;
+    return { top, left, width: tileSize, height: tileSize };
   }
 
   // Swipe: determine direction and move the tile that would slide into the empty space
