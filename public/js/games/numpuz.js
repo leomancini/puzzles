@@ -122,6 +122,69 @@ export class NumPuz {
     };
   }
 
+  // Swipe: determine direction and move the tile that would slide into the empty space
+  moveByDirection(dx, dy) {
+    if (this.solved) return;
+    const emptyIndex = this.getEmptyIndex();
+    const emptyRow = Math.floor(emptyIndex / GRID_SIZE);
+    const emptyCol = emptyIndex % GRID_SIZE;
+
+    // The tile to move is opposite the swipe direction relative to empty
+    const sourceRow = emptyRow - dy;
+    const sourceCol = emptyCol - dx;
+
+    if (sourceRow < 0 || sourceRow >= GRID_SIZE || sourceCol < 0 || sourceCol >= GRID_SIZE) return;
+
+    const sourceIndex = sourceRow * GRID_SIZE + sourceCol;
+    const value = this.board[sourceIndex];
+    if (value !== 0) {
+      this.moveTile(value);
+    }
+  }
+
+  setupSwipe(boardEl) {
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+
+    boardEl.addEventListener('touchstart', (e) => {
+      if (e.touches.length !== 1) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+
+    boardEl.addEventListener('touchmove', (e) => {
+      if (!tracking) return;
+      // Prevent scrolling while swiping on the board
+      e.preventDefault();
+    }, { passive: false });
+
+    boardEl.addEventListener('touchend', (e) => {
+      if (!tracking) return;
+      tracking = false;
+
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const diffX = endX - startX;
+      const diffY = endY - startY;
+      const absDiffX = Math.abs(diffX);
+      const absDiffY = Math.abs(diffY);
+
+      // Minimum 20px swipe to distinguish from a tap
+      const MIN_SWIPE = 20;
+      if (absDiffX < MIN_SWIPE && absDiffY < MIN_SWIPE) return;
+
+      if (absDiffX > absDiffY) {
+        // Horizontal swipe
+        this.moveByDirection(diffX > 0 ? 1 : -1, 0);
+      } else {
+        // Vertical swipe
+        this.moveByDirection(0, diffY > 0 ? 1 : -1);
+      }
+    }, { passive: true });
+  }
+
   renderInitial() {
     this.container.innerHTML = '';
     this.tileElements = {};
@@ -131,6 +194,7 @@ export class NumPuz {
 
     this.boardEl = boardEl;
     this.container.appendChild(boardEl);
+    this.setupSwipe(boardEl);
 
     // Wait a frame for the board to get its size
     requestAnimationFrame(() => {
