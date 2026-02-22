@@ -52,7 +52,7 @@ function showUsernameScreen(canGoBack) {
   usernameInput.value = canGoBack ? (getUsername() || '') : '';
   usernameSubmit.disabled = usernameInput.value.trim().length === 0;
   showScreen('username');
-  if (canGoBack) usernameInput.focus();
+  if (canGoBack) setTimeout(() => usernameInput.focus(), 260);
 }
 
 usernameInput.addEventListener('input', () => {
