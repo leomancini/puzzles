@@ -28,6 +28,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--space-lg);
+  padding-bottom: 20%;
   gap: var(--space-lg);
 }
 
