@@ -111,6 +111,7 @@ body {
   justify-content: space-between;
   padding: var(--space-md) var(--space-lg);
   padding-top: env(safe-area-inset-top, var(--space-md));
+  background: var(--color-surface);
 }
 
 .app-title {
