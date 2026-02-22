@@ -31,6 +31,11 @@ function showScreen(name) {
 }
 
 // --- Username Screen ---
+// Prevent iOS from panning the viewport when focusing the input
+usernameInput.addEventListener('focus', () => {
+  setTimeout(() => window.scrollTo(0, 0), 50);
+});
+
 usernameInput.addEventListener('input', () => {
   usernameSubmit.disabled = usernameInput.value.trim().length === 0;
 });
