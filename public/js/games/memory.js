@@ -81,17 +81,20 @@ export class MemMatch {
     if (this.cards[a] === this.cards[b]) {
       this.matched.add(a);
       this.matched.add(b);
-      this.cardElements[a].classList.add('matched');
-      this.cardElements[b].classList.add('matched');
       this.flipped = [];
 
-      if (this.matched.size === TOTAL_CARDS) {
-        this.solved = true;
-        setTimeout(() => {
-          this.playSolvedAnimation();
-          this.callbacks.onSolve(this.moves);
-        }, 300);
-      }
+      // Wait for flip animation to finish, then fade out
+      setTimeout(() => {
+        this.cardElements[a].classList.add('matched');
+        this.cardElements[b].classList.add('matched');
+
+        if (this.matched.size === TOTAL_CARDS) {
+          this.solved = true;
+          setTimeout(() => {
+            this.callbacks.onSolve(this.moves);
+          }, 600);
+        }
+      }, 350);
     } else {
       this.locked = true;
       setTimeout(() => {
