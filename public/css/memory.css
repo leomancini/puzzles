@@ -68,7 +68,7 @@
 
 .memory-card.matched .memory-card-inner {
   opacity: 0;
-  transition: transform 300ms ease, opacity 500ms ease 200ms;
+  transition: opacity 500ms ease 200ms;
 }
 
 .memory-card:active .memory-card-inner {
