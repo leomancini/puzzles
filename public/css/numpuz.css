@@ -3,7 +3,8 @@
   background: var(--board-bg);
   border-radius: var(--radius-md);
   padding: 0;
-  width: min(85vw, 400px);
+  width: 100%;
+  max-width: 400px;
   max-height: calc(100vh - 200px);
   aspect-ratio: 1;
   touch-action: none;

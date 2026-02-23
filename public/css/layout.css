@@ -158,7 +158,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
 }
 
 /* Game footer */
