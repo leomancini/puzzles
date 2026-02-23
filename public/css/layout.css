@@ -142,7 +142,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-sm) var(--space-lg);
+  padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-md);
   padding-top: env(safe-area-inset-top, var(--space-sm));
 }
 
