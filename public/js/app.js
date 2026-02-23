@@ -24,6 +24,7 @@ const winOverlay = document.getElementById('win-overlay');
 const winTime = document.getElementById('win-time');
 const winMoves = document.getElementById('win-moves');
 const winRank = document.getElementById('win-rank');
+const leaderboardSpinner = document.getElementById('leaderboard-spinner');
 const leaderboardList = document.getElementById('leaderboard-list');
 const leaderboardEmpty = document.getElementById('leaderboard-empty');
 
@@ -171,10 +172,12 @@ document.getElementById('btn-back-leaderboard').addEventListener('click', () => 
 async function loadLeaderboard(game) {
   leaderboardList.innerHTML = '';
   leaderboardEmpty.style.display = 'none';
+  leaderboardSpinner.style.display = '';
 
   try {
     const res = await fetch(`/api/scores/${game}`);
     const scores = await res.json();
+    leaderboardSpinner.style.display = 'none';
 
     if (scores.length === 0) {
       leaderboardEmpty.style.display = '';
@@ -200,6 +203,7 @@ async function loadLeaderboard(game) {
       leaderboardList.appendChild(row);
     });
   } catch {
+    leaderboardSpinner.style.display = 'none';
     leaderboardEmpty.textContent = 'Could not load scores';
     leaderboardEmpty.style.display = '';
   }
