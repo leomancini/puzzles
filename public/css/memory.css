@@ -67,7 +67,6 @@
 }
 
 .memory-card.matched .memory-card-inner {
-  transform: rotateY(180deg);
   opacity: 0;
   transition: transform 300ms ease, opacity 500ms ease 200ms;
 }
