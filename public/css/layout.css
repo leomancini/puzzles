@@ -96,6 +96,8 @@ body {
 
 /* Text input */
 #username-input {
+  -webkit-user-select: text;
+  user-select: text;
   background: var(--color-surface);
   color: var(--color-text);
   font-size: 16px;

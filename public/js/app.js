@@ -37,6 +37,9 @@ function showScreen(name) {
   screens[name].classList.add('active');
 }
 
+// --- Enable :active states on iOS ---
+document.addEventListener('touchstart', () => {}, { passive: true });
+
 // --- Prevent iOS visual viewport panning ---
 if (window.visualViewport) {
   window.visualViewport.addEventListener('scroll', () => {
