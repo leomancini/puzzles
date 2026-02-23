@@ -1,6 +1,7 @@
 import { getUsername, setUsername } from './storage.js';
 import { createTimer } from './timer.js';
 import { NumPuz } from './games/numpuz.js';
+import { MemMatch } from './games/memory.js';
 
 // DOM references
 const screens = {
@@ -92,23 +93,30 @@ document.querySelectorAll('.game-card').forEach(card => {
 // --- Game Lifecycle ---
 function startGame(gameId) {
   currentGameId = gameId;
-  document.getElementById('game-title').textContent =
-    gameId === 'numpuz' ? 'NumPuz' : gameId;
+  const gameNames = { numpuz: 'NumPuz', memory: 'MemMatch' };
+  document.getElementById('game-title').textContent = gameNames[gameId] || gameId;
   showScreen('game');
 
+  const callbacks = {
+    onMove: (moveCount) => {
+      moveCounterEl.textContent = `Moves: ${moveCount}`;
+    },
+    onFirstMove: () => {
+      timer.start();
+    },
+    onSolve: (moveCount) => {
+      timer.stop();
+      showWin(timer.getFormatted(), timer.getElapsed(), moveCount);
+    },
+  };
+
   if (gameId === 'numpuz') {
-    currentGame = new NumPuz(gameContainer, {
-      onMove: (moveCount) => {
-        moveCounterEl.textContent = `Moves: ${moveCount}`;
-      },
-      onFirstMove: () => {
-        timer.start();
-      },
-      onSolve: (moveCount) => {
-        timer.stop();
-        showWin(timer.getFormatted(), timer.getElapsed(), moveCount);
-      },
-    });
+    currentGame = new NumPuz(gameContainer, callbacks);
+  } else if (gameId === 'memory') {
+    currentGame = new MemMatch(gameContainer, callbacks);
+  }
+
+  if (currentGame) {
     currentGame.init();
     moveCounterEl.textContent = 'Moves: 0';
     timer.reset();
@@ -162,7 +170,7 @@ document.getElementById('btn-back-to-menu').addEventListener('click', () => {
 // --- Leaderboard ---
 document.getElementById('btn-leaderboard').addEventListener('click', () => {
   showScreen('leaderboard');
-  loadLeaderboard('numpuz');
+  loadLeaderboard(currentGameId || 'numpuz');
 });
 
 document.getElementById('btn-back-leaderboard').addEventListener('click', () => {

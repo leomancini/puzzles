@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = `puzzles-${CACHE_VERSION}`;
 
 const APP_SHELL = [
@@ -7,10 +7,12 @@ const APP_SHELL = [
   '/css/theme.css',
   '/css/layout.css',
   '/css/numpuz.css',
+  '/css/memory.css',
   '/js/app.js',
   '/js/storage.js',
   '/js/timer.js',
   '/js/games/numpuz.js',
+  '/js/games/memory.js',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
 ];

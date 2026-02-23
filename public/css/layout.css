@@ -170,8 +170,14 @@ body {
   padding-bottom: env(safe-area-inset-bottom, var(--space-xl));
 }
 
-/* Game selection grid */
-.game-grid {
+/* Game selection */
+.select-content {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: env(safe-area-inset-bottom, var(--space-lg));
+}
+
+.game-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: var(--space-md);
@@ -198,6 +204,13 @@ body {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
+}
+
+.game-card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
 }
 
 .game-card-title {
