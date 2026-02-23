@@ -287,3 +287,74 @@ body {
   align-items: center;
   gap: var(--space-xs);
 }
+
+/* Win rank */
+.win-rank {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+/* Leaderboard */
+.leaderboard-content {
+  padding-bottom: var(--space-lg);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.leaderboard-list {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lb-header,
+.lb-row {
+  display: grid;
+  grid-template-columns: 40px 1fr 70px 70px;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+}
+
+.lb-header {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lb-row {
+  background: var(--color-surface);
+}
+
+.lb-row.lb-me {
+  background: var(--color-primary);
+  color: white;
+}
+
+.lb-rank {
+  font-weight: var(--font-weight-bold);
+}
+
+.lb-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lb-moves,
+.lb-time {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.leaderboard-empty {
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--space-2xl);
+}

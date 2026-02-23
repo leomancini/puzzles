@@ -7,6 +7,7 @@ const screens = {
   username: document.getElementById('screen-username'),
   select: document.getElementById('screen-select'),
   game: document.getElementById('screen-game'),
+  leaderboard: document.getElementById('screen-leaderboard'),
 };
 
 const usernameLoader = document.getElementById('username-loader');
@@ -22,8 +23,12 @@ const moveCounterEl = document.getElementById('move-counter');
 const winOverlay = document.getElementById('win-overlay');
 const winTime = document.getElementById('win-time');
 const winMoves = document.getElementById('win-moves');
+const winRank = document.getElementById('win-rank');
+const leaderboardList = document.getElementById('leaderboard-list');
+const leaderboardEmpty = document.getElementById('leaderboard-empty');
 
 let currentGame = null;
+let currentGameId = null;
 const timer = createTimer(timerEl);
 
 // --- Screen Navigation ---
@@ -33,8 +38,6 @@ function showScreen(name) {
 }
 
 // --- Prevent iOS visual viewport panning ---
-// iOS Safari shifts the visual viewport when focusing inputs or on overscroll.
-// position:fixed on html/body handles the layout viewport; this handles the visual viewport.
 if (window.visualViewport) {
   window.visualViewport.addEventListener('scroll', () => {
     requestAnimationFrame(() => {
@@ -85,6 +88,7 @@ document.querySelectorAll('.game-card').forEach(card => {
 
 // --- Game Lifecycle ---
 function startGame(gameId) {
+  currentGameId = gameId;
   document.getElementById('game-title').textContent =
     gameId === 'numpuz' ? 'NumPuz' : gameId;
   showScreen('game');
@@ -99,7 +103,7 @@ function startGame(gameId) {
       },
       onSolve: (moveCount) => {
         timer.stop();
-        showWin(timer.getFormatted(), moveCount);
+        showWin(timer.getFormatted(), timer.getElapsed(), moveCount);
       },
     });
     currentGame.init();
@@ -108,10 +112,32 @@ function startGame(gameId) {
   }
 }
 
-function showWin(time, moves) {
+async function showWin(time, timeMs, moves) {
   winTime.textContent = `Time: ${time}`;
   winMoves.textContent = `Moves: ${moves}`;
+  winRank.textContent = '';
   winOverlay.classList.remove('hidden');
+
+  // Submit score to server
+  try {
+    const res = await fetch('/api/scores', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: getUsername(),
+        game: currentGameId,
+        moves,
+        timeMs,
+        time,
+      }),
+    });
+    const data = await res.json();
+    if (data.rank) {
+      winRank.textContent = `Rank #${data.rank} of ${data.total}`;
+    }
+  } catch {
+    // Silently fail if offline
+  }
 }
 
 // --- Win Overlay ---
@@ -129,6 +155,59 @@ document.getElementById('btn-back-to-menu').addEventListener('click', () => {
   timer.reset();
   showScreen('select');
 });
+
+// --- Leaderboard ---
+document.getElementById('btn-leaderboard').addEventListener('click', () => {
+  showScreen('leaderboard');
+  loadLeaderboard('numpuz');
+});
+
+document.getElementById('btn-back-leaderboard').addEventListener('click', () => {
+  showScreen('select');
+});
+
+async function loadLeaderboard(game) {
+  leaderboardList.innerHTML = '';
+  leaderboardEmpty.style.display = 'none';
+
+  try {
+    const res = await fetch(`/api/scores/${game}`);
+    const scores = await res.json();
+
+    if (scores.length === 0) {
+      leaderboardEmpty.style.display = '';
+      return;
+    }
+
+    const currentUser = getUsername();
+
+    // Header row
+    const header = document.createElement('div');
+    header.className = 'lb-header';
+    header.innerHTML = '<span>#</span><span>Name</span><span class="lb-moves">Moves</span><span class="lb-time">Time</span>';
+    leaderboardList.appendChild(header);
+
+    scores.forEach((score, i) => {
+      const row = document.createElement('div');
+      row.className = 'lb-row' + (score.username === currentUser ? ' lb-me' : '');
+      row.innerHTML =
+        `<span class="lb-rank">${i + 1}</span>` +
+        `<span class="lb-name">${escapeHtml(score.username)}</span>` +
+        `<span class="lb-moves">${score.moves}</span>` +
+        `<span class="lb-time">${score.time}</span>`;
+      leaderboardList.appendChild(row);
+    });
+  } catch {
+    leaderboardEmpty.textContent = 'Could not load scores';
+    leaderboardEmpty.style.display = '';
+  }
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
 
 // --- Navigation ---
 document.getElementById('btn-back').addEventListener('click', () => {

@@ -49,6 +49,7 @@
           <div class="game-card-desc">Classic sliding puzzle</div>
         </button>
       </div>
+      <button id="btn-leaderboard" class="btn-secondary">Leaderboard</button>
     </div>
   </section>
 
@@ -66,12 +67,26 @@
     </div>
   </section>
 
+  <!-- Screen 4: Leaderboard -->
+  <section id="screen-leaderboard" class="screen">
+    <header class="game-header">
+      <button id="btn-back-leaderboard" class="btn-icon" aria-label="Back">&#8592;</button>
+      <h1 class="game-header-title">Leaderboard</h1>
+      <div style="min-width:44px"></div>
+    </header>
+    <div class="screen-content screen-content-top leaderboard-content">
+      <div id="leaderboard-list" class="leaderboard-list"></div>
+      <div id="leaderboard-empty" class="leaderboard-empty">No scores yet. Play a game!</div>
+    </div>
+  </section>
+
   <!-- Win overlay -->
   <div id="win-overlay" class="overlay hidden">
     <div class="overlay-content">
       <h2 class="win-title">Solved!</h2>
       <p id="win-time" class="win-stat"></p>
       <p id="win-moves" class="win-stat"></p>
+      <p id="win-rank" class="win-rank"></p>
       <button id="btn-play-again" class="btn-primary">Play Again</button>
       <button id="btn-back-to-menu" class="btn-secondary">Back to Menu</button>
     </div>
