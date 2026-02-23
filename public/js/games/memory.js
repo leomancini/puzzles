@@ -94,7 +94,7 @@ export class MemMatch {
             this.callbacks.onSolve(this.moves);
           }, 600);
         }
-      }, 350);
+      }, 400);
     } else {
       this.locked = true;
       setTimeout(() => {
