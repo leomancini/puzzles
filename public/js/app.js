@@ -126,7 +126,7 @@ function startGame(gameId) {
 async function showWin(time, timeMs, moves) {
   winTime.textContent = `Time: ${time}`;
   winMoves.textContent = `Moves: ${moves}`;
-  winRank.textContent = '';
+  winRank.textContent = 'Loading rank...';
   winOverlay.classList.remove('hidden');
 
   // Submit score to server

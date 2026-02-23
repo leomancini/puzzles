@@ -52,13 +52,13 @@
 .memory-card-front {
   background: var(--tile-color);
   color: var(--color-text-muted);
-  font-size: var(--tile-font-size);
+  font-size: 2rem;
 }
 
 .memory-card-back {
   background: var(--tile-color);
   color: var(--color-primary);
-  font-size: 1.75rem;
+  font-size: 2.25rem;
   transform: rotateY(180deg);
 }
 

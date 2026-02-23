@@ -2,15 +2,15 @@ const GRID_SIZE = 4;
 const TOTAL_CARDS = GRID_SIZE * GRID_SIZE;
 const PAIR_COUNT = TOTAL_CARDS / 2;
 
-const SYMBOLS = [
-  '\u2605', // star
-  '\u2666', // diamond
-  '\u2663', // club
-  '\u2660', // spade
-  '\u266B', // music
-  '\u2744', // snowflake
-  '\u2764', // heart
-  '\u263A', // smiley
+const EMOJI_SETS = [
+  ['🐶', '🐱', '🐸', '🦊', '🐻', '🐼', '🐨', '🐯'],
+  ['🍎', '🍊', '🍋', '🍇', '🍓', '🍒', '🍑', '🥝'],
+  ['⚽', '🏀', '🎾', '🏐', '🎱', '🏓', '🥊', '🎯'],
+  ['🚀', '✈️', '🚁', '⛵', '🚂', '🏎️', '🚲', '🛸'],
+  ['🌸', '🌻', '🌺', '🌷', '🌹', '🍀', '🌵', '🌴'],
+  ['🎸', '🎹', '🥁', '🎺', '🎻', '🪗', '🎤', '🎧'],
+  ['🦋', '🐝', '🐞', '🐢', '🐙', '🦀', '🐠', '🦜'],
+  ['🍕', '🍔', '🌮', '🍣', '🍩', '🧁', '🍦', '🥐'],
 ];
 
 export class MemMatch {
@@ -28,6 +28,7 @@ export class MemMatch {
   }
 
   init() {
+    this.symbols = EMOJI_SETS[Math.floor(Math.random() * EMOJI_SETS.length)];
     this.cards = this.generateBoard();
     this.flipped = [];
     this.matched = new Set();
@@ -123,7 +124,7 @@ export class MemMatch {
 
       const back = document.createElement('div');
       back.className = 'memory-card-back';
-      back.textContent = SYMBOLS[this.cards[i]];
+      back.textContent = this.symbols[this.cards[i]];
 
       inner.appendChild(front);
       inner.appendChild(back);
