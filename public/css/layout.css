@@ -91,7 +91,6 @@ body {
 
 .btn-icon:active {
   transform: scale(0.9);
-  background: var(--color-surface-raised);
 }
 
 /* Text input */
@@ -145,6 +144,11 @@ body {
   justify-content: space-between;
   padding: var(--space-sm) var(--space-lg);
   padding-top: env(safe-area-inset-top, var(--space-sm));
+}
+
+.game-header .btn-icon:first-child {
+  margin-left: -12px;
+  justify-content: flex-start;
 }
 
 .game-header-title {
@@ -289,6 +293,15 @@ body {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
+}
+
+.user-badge #display-name {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.user-badge .btn-icon {
+  color: var(--color-primary);
 }
 
 /* Win rank */
