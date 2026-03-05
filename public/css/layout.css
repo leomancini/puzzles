@@ -23,7 +23,8 @@ body {
   pointer-events: auto;
 }
 
-.no-transition .screen {
+.no-transition .screen,
+.no-transition .overlay {
   transition: none;
 }
 
