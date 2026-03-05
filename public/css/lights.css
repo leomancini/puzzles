@@ -1,0 +1,40 @@
+.lights-board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--tile-gap);
+  padding: var(--tile-gap);
+  background: var(--board-bg);
+  border-radius: var(--radius-md);
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.lights-cell {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: var(--tile-radius);
+  background: var(--tile-color);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: background 200ms ease, transform var(--transition-fast);
+}
+
+.lights-cell.lit {
+  background: var(--color-primary);
+}
+
+.lights-cell:active {
+  transform: scale(0.92);
+}
+
+@keyframes lights-solved-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); background: var(--color-success); }
+  100% { transform: scale(1); background: var(--tile-color); }
+}
+
+.lights-cell.solved-pop {
+  animation: lights-solved-pop 350ms ease forwards;
+}

@@ -2,6 +2,7 @@ import { getUsername, setUsername } from './storage.js';
 import { createTimer } from './timer.js';
 import { NumPuz } from './games/numpuz.js';
 import { MemMatch } from './games/memory.js';
+import { LightsOut } from './games/lights.js';
 
 // DOM references
 const screens = {
@@ -140,7 +141,7 @@ document.querySelectorAll('.game-card').forEach(card => {
 // --- Game Lifecycle ---
 function startGame(gameId, { push = true } = {}) {
   currentGameId = gameId;
-  const gameNames = { numpuz: 'Sliding Numbers', memory: 'Memory Cards' };
+  const gameNames = { numpuz: 'Sliding Numbers', lights: 'Lights Out', memory: 'Memory Cards' };
   document.getElementById('game-title').textContent = gameNames[gameId] || gameId;
   showScreen('game', { push: false });
   if (push) {
@@ -163,6 +164,8 @@ function startGame(gameId, { push = true } = {}) {
 
   if (gameId === 'numpuz') {
     currentGame = new NumPuz(gameContainer, callbacks);
+  } else if (gameId === 'lights') {
+    currentGame = new LightsOut(gameContainer, callbacks);
   } else if (gameId === 'memory') {
     currentGame = new MemMatch(gameContainer, callbacks);
   }
