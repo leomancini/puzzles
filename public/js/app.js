@@ -69,18 +69,27 @@ function showScreen(name, { push = true, back = false } = {}) {
   });
 
   if (back) {
-    // Instantly position at left with no transition
     target.style.transition = 'none';
     target.style.transform = 'translateX(-30px)';
     target.classList.add('active');
-    // Force browser to commit the -30px position
     void target.offsetWidth;
-    // Clear inline styles — CSS transition takes over, animates from -30px to 0
     target.style.removeProperty('transition');
     target.style.removeProperty('transform');
   } else {
-    target.classList.add('active');
+    const hasTransitions = !document.body.classList.contains('no-transition');
+    if (hasTransitions) {
+      target.classList.add('enter-right');
+      target.classList.add('active');
+      requestAnimationFrame(() => {
+        target.classList.remove('enter-right');
+      });
+    } else {
+      target.classList.add('active');
+    }
   }
+
+  document.body.classList.toggle('lock-scroll', name !== 'select');
+  window.scrollTo(0, 0);
 
   if (push) {
     const path = screenPaths[name] || '/';
@@ -112,14 +121,6 @@ window.addEventListener('popstate', (e) => {
 // --- Enable :active states on iOS ---
 document.addEventListener('touchstart', () => {}, { passive: true });
 
-// --- Prevent iOS visual viewport panning ---
-if (window.visualViewport) {
-  window.visualViewport.addEventListener('scroll', () => {
-    requestAnimationFrame(() => {
-      window.scrollTo(0, 0);
-    });
-  });
-}
 
 // --- Username Screen ---
 const usernameTitle = document.getElementById('username-title');

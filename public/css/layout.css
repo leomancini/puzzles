@@ -12,7 +12,6 @@ body {
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transform: translateX(30px);
   pointer-events: none;
   transition: opacity var(--transition-normal), transform var(--transition-normal);
 }
@@ -23,12 +22,25 @@ body {
   pointer-events: auto;
 }
 
-.screen.fade-only {
-  transform: none;
+.screen.enter-right {
+  transform: translateX(30px);
 }
 
 .screen.exit-left {
   transform: translateX(-30px);
+}
+
+#screen-select.active {
+  position: relative;
+  min-height: 100%;
+}
+
+body.lock-scroll {
+  overflow: hidden;
+}
+
+.screen.fade-only {
+  transform: none;
 }
 
 
@@ -183,8 +195,11 @@ body {
 /* Header gradient fade */
 .app-header,
 .game-header {
-  position: relative;
   z-index: 10;
+}
+
+.game-header {
+  position: relative;
 }
 
 .app-header::after,
@@ -265,14 +280,9 @@ body {
 
 /* Game selection */
 .select-content {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   padding-bottom: var(--space-lg);
 }
 
-#screen-select {
-  overflow-y: auto;
-}
 
 .game-list {
   display: flex;
