@@ -242,6 +242,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: var(--space-md) var(--space-lg);
+  padding-bottom: 0;
 }
 
 /* Game footer */
@@ -250,7 +251,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
-  padding: calc(var(--space-2xl) + 32px) var(--space-lg) calc(env(safe-area-inset-bottom, 0px) + var(--space-xl));
+  padding: var(--space-2xl) var(--space-lg) calc(env(safe-area-inset-bottom, 0px) + var(--space-xl));
 }
 
 @media (min-width: 481px) {
