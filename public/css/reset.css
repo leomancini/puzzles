@@ -10,6 +10,10 @@ html {
   touch-action: manipulation;
 }
 
+html {
+  height: 100%;
+}
+
 html, body {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -17,6 +21,7 @@ html, body {
 }
 
 body {
+  min-height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
                Oxygen, Ubuntu, Cantarell, sans-serif;
   line-height: 1.5;

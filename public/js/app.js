@@ -184,6 +184,7 @@ function fadeToScreen(name) {
 
     // Fade in target screen
     target.classList.add('active');
+    document.body.classList.toggle('lock-scroll', name !== 'select');
     const path = screenPaths[name] || '/';
     history.pushState({ screen: name, gameId: currentGameId }, '', path);
 
