@@ -251,6 +251,7 @@ body {
   align-items: center;
   gap: var(--space-md);
   padding: var(--space-2xl) var(--space-lg);
+  padding-top: calc(var(--space-2xl) + 8px);
   padding-bottom: calc(env(safe-area-inset-bottom, 0px) + var(--space-xl));
 }
 
