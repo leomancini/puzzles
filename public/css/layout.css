@@ -155,6 +155,9 @@ body {
 
 /* App header */
 .app-header {
+  position: sticky;
+  top: 0;
+  background: var(--color-bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -251,7 +254,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
-  padding: var(--space-2xl) var(--space-lg) calc(env(safe-area-inset-bottom, 0px) + var(--space-xl));
+  padding: 120px var(--space-lg) var(--space-md);
 }
 
 @media (min-width: 481px) {
@@ -264,7 +267,11 @@ body {
 .select-content {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: var(--space-2xl);
+  padding-bottom: var(--space-lg);
+}
+
+#screen-select {
+  overflow-y: auto;
 }
 
 .game-list {
