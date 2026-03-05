@@ -171,6 +171,25 @@ body {
   color: var(--color-text-muted);
 }
 
+/* Header gradient fade */
+.app-header,
+.game-header {
+  position: relative;
+  z-index: 10;
+}
+
+.app-header::after,
+.game-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 24px;
+  background: linear-gradient(to bottom, var(--color-bg), transparent);
+  pointer-events: none;
+}
+
 /* Game header */
 .game-header {
   display: grid;
