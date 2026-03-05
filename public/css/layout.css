@@ -27,6 +27,11 @@ body {
   transform: none;
 }
 
+.screen.exit-left {
+  transform: translateX(-30px);
+}
+
+
 .no-transition .screen,
 .no-transition .overlay {
   transition: none;
@@ -45,7 +50,7 @@ body {
 
 .screen-content-top {
   justify-content: flex-start;
-  padding-top: var(--space-md);
+  padding-top: calc(var(--space-md) + 8px);
 }
 
 #username-form {
@@ -155,6 +160,7 @@ body {
   justify-content: space-between;
   padding: var(--space-md) var(--space-lg);
   padding-top: calc(env(safe-area-inset-top, 0px) + 16px);
+  padding-bottom: var(--space-xs);
 }
 
 .app-title {
@@ -185,7 +191,7 @@ body {
   left: 0;
   right: 0;
   top: 100%;
-  height: 24px;
+  height: 12px;
   background: linear-gradient(to bottom, var(--color-bg), transparent);
   pointer-events: none;
 }
@@ -197,6 +203,7 @@ body {
   align-items: center;
   padding: var(--space-sm);
   padding-top: calc(env(safe-area-inset-top, 0px) + var(--space-md));
+  padding-bottom: var(--space-xs);
 }
 
 @media (min-width: 481px) {

@@ -48,9 +48,40 @@ const screenPaths = {
   leaderboard: '/leaderboard',
 };
 
-function showScreen(name, { push = true } = {}) {
-  Object.values(screens).forEach(s => s.classList.remove('active'));
-  screens[name].classList.add('active');
+function showScreen(name, { push = true, back = false } = {}) {
+  const current = document.querySelector('.screen.active');
+  const target = screens[name];
+
+  if (current && current !== target) {
+    const hasTransitions = !document.body.classList.contains('no-transition');
+    if (!back && hasTransitions) {
+      current.classList.add('exit-left');
+      current.addEventListener('transitionend', function cleanup(e) {
+        if (e.propertyName !== 'opacity') return;
+        current.removeEventListener('transitionend', cleanup);
+        current.classList.remove('exit-left');
+      });
+    }
+  }
+
+  Object.values(screens).forEach(s => {
+    if (s !== target) s.classList.remove('active');
+  });
+
+  if (back) {
+    // Instantly position at left with no transition
+    target.style.transition = 'none';
+    target.style.transform = 'translateX(-30px)';
+    target.classList.add('active');
+    // Force browser to commit the -30px position
+    void target.offsetWidth;
+    // Clear inline styles — CSS transition takes over, animates from -30px to 0
+    target.style.removeProperty('transition');
+    target.style.removeProperty('transform');
+  } else {
+    target.classList.add('active');
+  }
+
   if (push) {
     const path = screenPaths[name] || '/';
     history.pushState({ screen: name, gameId: currentGameId }, '', path);
@@ -63,18 +94,18 @@ function showScreen(name, { push = true } = {}) {
 window.addEventListener('popstate', (e) => {
   const state = e.state;
   if (!state) {
-    showScreen('select', { push: false });
+    showScreen('select', { push: false, back: true });
     return;
   }
   if (state.screen === 'game' && state.gameId) {
-    startGame(state.gameId, { push: false });
+    startGame(state.gameId, { push: false, back: true });
   } else if (state.screen === 'username') {
-    showUsernameScreen(state.canGoBack !== false, { push: false });
+    showUsernameScreen(state.canGoBack !== false, { push: false, back: true });
   } else if (state.screen === 'leaderboard') {
-    showScreen('leaderboard', { push: false });
+    showScreen('leaderboard', { push: false, back: true });
     loadLeaderboard(currentGameId || 'numpuz');
   } else {
-    showScreen(state.screen, { push: false });
+    showScreen(state.screen, { push: false, back: true });
   }
 });
 
@@ -93,7 +124,7 @@ if (window.visualViewport) {
 // --- Username Screen ---
 const usernameTitle = document.getElementById('username-title');
 
-function showUsernameScreen(canGoBack, { push = true } = {}) {
+function showUsernameScreen(canGoBack, { push = true, back = false } = {}) {
   usernameLoader.style.display = 'none';
   usernameHeader.style.display = '';
   usernameForm.style.display = '';
@@ -104,7 +135,7 @@ function showUsernameScreen(canGoBack, { push = true } = {}) {
   usernameSubmit.disabled = usernameInput.value.trim().length === 0;
 
   const path = canGoBack ? '/profile' : '/create-profile';
-  showScreen('username', { push: false });
+  showScreen('username', { push: false, back });
   if (push) {
     history.pushState({ screen: 'username', canGoBack }, '', path);
   }
@@ -132,7 +163,7 @@ function submitUsername() {
   if (isNewProfile) {
     fadeToScreen('select');
   } else {
-    showScreen('select');
+    showScreen('select', { back: true });
   }
 }
 
@@ -173,11 +204,11 @@ document.querySelectorAll('.game-card').forEach(card => {
 });
 
 // --- Game Lifecycle ---
-function startGame(gameId, { push = true } = {}) {
+function startGame(gameId, { push = true, back = false } = {}) {
   currentGameId = gameId;
   const gameNames = { numpuz: 'Sliding Numbers', lights: 'Lights Out', memory: 'Memory Cards' };
   document.getElementById('game-title').textContent = gameNames[gameId] || gameId;
-  showScreen('game', { push: false });
+  showScreen('game', { push: false, back });
   if (push) {
     history.pushState({ screen: 'game', gameId }, '', `/play/${gameId}`);
   }
@@ -253,7 +284,7 @@ document.getElementById('btn-play-again').addEventListener('click', () => {
 document.getElementById('btn-back-to-menu').addEventListener('click', () => {
   winOverlay.classList.add('hidden');
   timer.reset();
-  showScreen('select');
+  showScreen('select', { back: true });
 });
 
 // --- Leaderboard ---
@@ -263,7 +294,7 @@ document.getElementById('btn-leaderboard').addEventListener('click', () => {
 });
 
 document.getElementById('btn-back-leaderboard').addEventListener('click', () => {
-  showScreen('select');
+  showScreen('select', { back: true });
 });
 
 async function loadLeaderboard(game) {
@@ -316,7 +347,7 @@ function escapeHtml(str) {
 document.getElementById('btn-back').addEventListener('click', () => {
   timer.stop();
   timer.reset();
-  showScreen('select');
+  showScreen('select', { back: true });
 });
 
 document.getElementById('btn-new-game').addEventListener('click', () => {
@@ -333,7 +364,7 @@ document.getElementById('change-name').addEventListener('click', () => {
 });
 
 btnBackUsername.addEventListener('click', () => {
-  showScreen('select');
+  showScreen('select', { back: true });
 });
 
 // --- Init ---
