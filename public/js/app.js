@@ -19,8 +19,7 @@ const usernameSubmit = document.getElementById('username-submit');
 const btnBackUsername = document.getElementById('btn-back-username');
 const displayName = document.getElementById('display-name');
 const gameContainer = document.getElementById('game-container');
-const timerEl = document.getElementById('timer');
-const moveCounterEl = document.getElementById('move-counter');
+const gameStatsEl = document.getElementById('game-stats');
 const winOverlay = document.getElementById('win-overlay');
 const winTime = document.getElementById('win-time');
 const winMoves = document.getElementById('win-moves');
@@ -31,13 +30,52 @@ const leaderboardEmpty = document.getElementById('leaderboard-empty');
 
 let currentGame = null;
 let currentGameId = null;
-const timer = createTimer(timerEl);
+let currentMoves = 0;
+
+function updateStats(time) {
+  const label = currentMoves === 1 ? 'move' : 'moves';
+  gameStatsEl.textContent = `${currentMoves} ${label} · ${time}`;
+}
+
+const timer = createTimer((time) => updateStats(time));
 
 // --- Screen Navigation ---
-function showScreen(name) {
+const screenPaths = {
+  username: '/profile',
+  select: '/',
+  game: '/play',
+  leaderboard: '/leaderboard',
+};
+
+function showScreen(name, { push = true } = {}) {
   Object.values(screens).forEach(s => s.classList.remove('active'));
   screens[name].classList.add('active');
+  if (push) {
+    const path = screenPaths[name] || '/';
+    history.pushState({ screen: name, gameId: currentGameId }, '', path);
+  }
+  requestAnimationFrame(() => {
+    document.body.classList.remove('no-transition');
+  });
 }
+
+window.addEventListener('popstate', (e) => {
+  const state = e.state;
+  if (!state) {
+    showScreen('select', { push: false });
+    return;
+  }
+  if (state.screen === 'game' && state.gameId) {
+    startGame(state.gameId, { push: false });
+  } else if (state.screen === 'username') {
+    showUsernameScreen(true, { push: false });
+  } else if (state.screen === 'leaderboard') {
+    showScreen('leaderboard', { push: false });
+    loadLeaderboard(currentGameId || 'numpuz');
+  } else {
+    showScreen(state.screen, { push: false });
+  }
+});
 
 // --- Enable :active states on iOS ---
 document.addEventListener('touchstart', () => {}, { passive: true });
@@ -52,14 +90,14 @@ if (window.visualViewport) {
 }
 
 // --- Username Screen ---
-function showUsernameScreen(canGoBack) {
+function showUsernameScreen(canGoBack, { push = true } = {}) {
   usernameLoader.style.display = 'none';
   usernameHeader.style.display = '';
   usernameForm.style.display = '';
   btnBackUsername.style.visibility = canGoBack ? 'visible' : 'hidden';
   usernameInput.value = canGoBack ? (getUsername() || '') : '';
   usernameSubmit.disabled = usernameInput.value.trim().length === 0;
-  showScreen('username');
+  showScreen('username', { push });
 }
 
 usernameInput.addEventListener('input', () => {
@@ -91,15 +129,19 @@ document.querySelectorAll('.game-card').forEach(card => {
 });
 
 // --- Game Lifecycle ---
-function startGame(gameId) {
+function startGame(gameId, { push = true } = {}) {
   currentGameId = gameId;
-  const gameNames = { numpuz: 'NumPuz', memory: 'MemMatch' };
+  const gameNames = { numpuz: 'Sliding Numbers', memory: 'Memory Cards' };
   document.getElementById('game-title').textContent = gameNames[gameId] || gameId;
-  showScreen('game');
+  showScreen('game', { push: false });
+  if (push) {
+    history.pushState({ screen: 'game', gameId }, '', `/play/${gameId}`);
+  }
 
   const callbacks = {
     onMove: (moveCount) => {
-      moveCounterEl.textContent = `Moves: ${moveCount}`;
+      currentMoves = moveCount;
+      updateStats(timer.getFormatted());
     },
     onFirstMove: () => {
       timer.start();
@@ -118,7 +160,7 @@ function startGame(gameId) {
 
   if (currentGame) {
     currentGame.init();
-    moveCounterEl.textContent = 'Moves: 0';
+    currentMoves = 0;
     timer.reset();
   }
 }
@@ -156,7 +198,8 @@ document.getElementById('btn-play-again').addEventListener('click', () => {
   winOverlay.classList.add('hidden');
   if (currentGame) {
     currentGame.init();
-    moveCounterEl.textContent = 'Moves: 0';
+    currentMoves = 0;
+    updateStats('0:00');
     timer.reset();
   }
 });
@@ -233,7 +276,8 @@ document.getElementById('btn-back').addEventListener('click', () => {
 document.getElementById('btn-new-game').addEventListener('click', () => {
   if (currentGame) {
     currentGame.init();
-    moveCounterEl.textContent = 'Moves: 0';
+    currentMoves = 0;
+    updateStats('0:00');
     timer.reset();
   }
 });
@@ -249,10 +293,28 @@ btnBackUsername.addEventListener('click', () => {
 // --- Init ---
 (function init() {
   const saved = getUsername();
-  if (saved) {
-    displayName.textContent = saved;
-    showScreen('select');
+  if (!saved) {
+    showUsernameScreen(false, { push: false });
+    history.replaceState({ screen: 'username' }, '', '/profile');
+    return;
+  }
+
+  displayName.textContent = saved;
+  const path = window.location.pathname;
+
+  if (path.startsWith('/play/')) {
+    const gameId = path.split('/')[2];
+    startGame(gameId, { push: false });
+    history.replaceState({ screen: 'game', gameId }, '', path);
+  } else if (path === '/leaderboard') {
+    showScreen('leaderboard', { push: false });
+    loadLeaderboard(currentGameId || 'numpuz');
+    history.replaceState({ screen: 'leaderboard' }, '', path);
+  } else if (path === '/profile') {
+    showUsernameScreen(true, { push: false });
+    history.replaceState({ screen: 'username' }, '', path);
   } else {
-    showUsernameScreen(false);
+    showScreen('select', { push: false });
+    history.replaceState({ screen: 'select' }, '', '/');
   }
 })();

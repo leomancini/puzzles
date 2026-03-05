@@ -19,10 +19,10 @@
   --radius-md: 12px;
   --radius-lg: 20px;
 
-  --font-size-sm: 0.875rem;
-  --font-size-md: 1rem;
-  --font-size-lg: 1.25rem;
-  --font-size-xl: 1.5rem;
+  --font-size-sm: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.375rem;
+  --font-size-xl: 1.625rem;
   --font-size-2xl: 2rem;
   --font-size-3xl: 3rem;
   --font-weight-normal: 400;
@@ -36,5 +36,5 @@
   --tile-color: #ffffff;
   --tile-text-color: #1a1a1a;
   --tile-font-size: 1.75rem;
-  --board-bg: #d0d0d0;
+  --board-bg: #e8e8e8;
 }

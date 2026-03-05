@@ -67,6 +67,11 @@ app.get('/api/scores/:game', (req, res) => {
 
 app.use(express.static(join(__dirname, 'public')));
 
+// SPA fallback — serve index.html for client-side routes
+app.get('*', (req, res) => {
+  res.sendFile(join(__dirname, 'public', 'index.html'));
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });

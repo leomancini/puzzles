@@ -1,4 +1,4 @@
-export function createTimer(displayEl) {
+export function createTimer(onTick) {
   let startTime = 0;
   let elapsed = 0;
   let rafId = null;
@@ -14,7 +14,7 @@ export function createTimer(displayEl) {
   function tick() {
     if (!running) return;
     elapsed = Date.now() - startTime;
-    displayEl.textContent = formatTime(elapsed);
+    onTick(formatTime(elapsed));
     rafId = requestAnimationFrame(tick);
   }
 
@@ -32,7 +32,7 @@ export function createTimer(displayEl) {
     reset() {
       this.stop();
       elapsed = 0;
-      displayEl.textContent = '0:00';
+      onTick('0:00');
     },
     getElapsed() {
       return elapsed;

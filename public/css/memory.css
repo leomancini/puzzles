@@ -6,7 +6,6 @@
   background: var(--board-bg);
   border-radius: var(--radius-md);
   width: 100%;
-  max-width: 400px;
   aspect-ratio: 1;
 }
 
