@@ -127,7 +127,41 @@ function submitUsername() {
   if (!name) return;
   setUsername(name);
   displayName.textContent = name;
-  showScreen('select');
+
+  const isNewProfile = !btnBackUsername.style.visibility || btnBackUsername.style.visibility === 'hidden';
+  if (isNewProfile) {
+    fadeToScreen('select');
+  } else {
+    showScreen('select');
+  }
+}
+
+function fadeToScreen(name) {
+  const current = document.querySelector('.screen.active');
+  const target = screens[name];
+
+  current.classList.add('fade-only');
+  target.classList.add('fade-only');
+
+  // Fade out current screen
+  current.classList.remove('active');
+
+  current.addEventListener('transitionend', function onFadeOut(e) {
+    if (e.propertyName !== 'opacity') return;
+    current.removeEventListener('transitionend', onFadeOut);
+
+    // Fade in target screen
+    target.classList.add('active');
+    const path = screenPaths[name] || '/';
+    history.pushState({ screen: name, gameId: currentGameId }, '', path);
+
+    target.addEventListener('transitionend', function onFadeIn(e) {
+      if (e.propertyName !== 'opacity') return;
+      target.removeEventListener('transitionend', onFadeIn);
+      current.classList.remove('fade-only');
+      target.classList.remove('fade-only');
+    });
+  });
 }
 
 // --- Game Selection ---

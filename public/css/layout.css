@@ -23,6 +23,10 @@ body {
   pointer-events: auto;
 }
 
+.screen.fade-only {
+  transform: none;
+}
+
 .no-transition .screen,
 .no-transition .overlay {
   transition: none;
