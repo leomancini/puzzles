@@ -68,7 +68,7 @@ window.addEventListener('popstate', (e) => {
   if (state.screen === 'game' && state.gameId) {
     startGame(state.gameId, { push: false });
   } else if (state.screen === 'username') {
-    showUsernameScreen(true, { push: false });
+    showUsernameScreen(state.canGoBack !== false, { push: false });
   } else if (state.screen === 'leaderboard') {
     showScreen('leaderboard', { push: false });
     loadLeaderboard(currentGameId || 'numpuz');
@@ -90,14 +90,23 @@ if (window.visualViewport) {
 }
 
 // --- Username Screen ---
+const usernameTitle = document.getElementById('username-title');
+
 function showUsernameScreen(canGoBack, { push = true } = {}) {
   usernameLoader.style.display = 'none';
   usernameHeader.style.display = '';
   usernameForm.style.display = '';
   btnBackUsername.style.visibility = canGoBack ? 'visible' : 'hidden';
+  usernameTitle.textContent = canGoBack ? 'Profile' : 'Create profile';
+  usernameSubmit.textContent = canGoBack ? 'Save' : 'Start';
   usernameInput.value = canGoBack ? (getUsername() || '') : '';
   usernameSubmit.disabled = usernameInput.value.trim().length === 0;
-  showScreen('username', { push });
+
+  const path = canGoBack ? '/profile' : '/create-profile';
+  showScreen('username', { push: false });
+  if (push) {
+    history.pushState({ screen: 'username', canGoBack }, '', path);
+  }
 }
 
 usernameInput.addEventListener('input', () => {
@@ -295,7 +304,7 @@ btnBackUsername.addEventListener('click', () => {
   const saved = getUsername();
   if (!saved) {
     showUsernameScreen(false, { push: false });
-    history.replaceState({ screen: 'username' }, '', '/profile');
+    history.replaceState({ screen: 'username', canGoBack: false }, '', '/create-profile');
     return;
   }
 
@@ -312,7 +321,10 @@ btnBackUsername.addEventListener('click', () => {
     history.replaceState({ screen: 'leaderboard' }, '', path);
   } else if (path === '/profile') {
     showUsernameScreen(true, { push: false });
-    history.replaceState({ screen: 'username' }, '', path);
+    history.replaceState({ screen: 'username', canGoBack: true }, '', path);
+  } else if (path === '/create-profile') {
+    showUsernameScreen(false, { push: false });
+    history.replaceState({ screen: 'username', canGoBack: false }, '', path);
   } else {
     showScreen('select', { push: false });
     history.replaceState({ screen: 'select' }, '', '/');
