@@ -123,7 +123,7 @@ export class MemMatch {
 
       const front = document.createElement('div');
       front.className = 'memory-card-front';
-      front.textContent = '?';
+      front.textContent = '';
 
       const back = document.createElement('div');
       back.className = 'memory-card-back';

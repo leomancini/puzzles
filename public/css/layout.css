@@ -240,6 +240,7 @@ body.lock-scroll {
 
 .game-header > :last-child {
   justify-self: end;
+  margin-right: var(--space-sm);
 }
 
 .game-header .btn-text {
@@ -269,12 +270,12 @@ body.lock-scroll {
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
-  padding: var(--space-md) var(--space-lg) var(--space-lg);
+  padding: var(--space-md) var(--space-lg) var(--space-xl);
 }
 
 @media (min-width: 481px) {
   .game-footer {
-    padding-bottom: var(--space-lg);
+    padding-bottom: var(--space-xl);
   }
 }
 
