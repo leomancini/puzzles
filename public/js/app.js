@@ -371,7 +371,11 @@ const btnNewGame = document.getElementById('btn-new-game');
 btnNewGame.addEventListener('click', () => {
   btnNewGame.style.animation = 'none';
   void btnNewGame.offsetWidth;
-  btnNewGame.style.animation = 'spin-once 400ms ease';
+  btnNewGame.style.animation = 'spin-once 400ms ease forwards';
+  btnNewGame.addEventListener('animationend', function cleanup() {
+    btnNewGame.removeEventListener('animationend', cleanup);
+    btnNewGame.style.animation = '';
+  });
   if (currentGame) {
     currentGame.init();
     currentMoves = 0;
