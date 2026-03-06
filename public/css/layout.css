@@ -62,11 +62,11 @@ body.lock-scroll {
 
 .screen-content-top {
   justify-content: flex-start;
-  padding-top: calc(var(--space-md) + 18px);
+  padding-top: calc(var(--space-md) + 16px);
 }
 
 #username-form {
-  padding-top: calc(var(--space-lg) + 10px);
+  padding-top: calc(var(--space-lg) + 8px);
 }
 
 /* Buttons */
