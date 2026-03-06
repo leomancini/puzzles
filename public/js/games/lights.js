@@ -1,7 +1,7 @@
-const GRID_SIZE = 5;
+const GRID_SIZE = 4;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
-const MIN_SCRAMBLE_MOVES = 8;
-const MAX_SCRAMBLE_MOVES = 14;
+const MIN_SCRAMBLE_MOVES = 6;
+const MAX_SCRAMBLE_MOVES = 10;
 
 export class LightsOut {
   constructor(container, callbacks) {

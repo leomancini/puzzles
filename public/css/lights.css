@@ -1,6 +1,6 @@
 .lights-board {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--tile-gap);
   padding: var(--tile-gap);
   background: var(--board-bg);
