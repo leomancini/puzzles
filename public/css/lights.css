@@ -5,7 +5,7 @@
   padding: var(--tile-gap);
   background: var(--board-bg);
   --smooth-corners: 5;
-  --corner-radius: 64;
+  --corner-radius: 72;
   mask-image: paint(smooth-corners);
   width: 100%;
   aspect-ratio: 1;
@@ -15,7 +15,7 @@
   aspect-ratio: 1;
   border: none;
   --smooth-corners: 5;
-  --corner-radius: 58;
+  --corner-radius: 60;
   mask-image: paint(smooth-corners);
   background: var(--tile-color);
   cursor: pointer;

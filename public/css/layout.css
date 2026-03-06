@@ -303,7 +303,7 @@ body.lock-scroll {
 .game-card {
   background: var(--color-surface);
   --smooth-corners: 5;
-  --corner-radius: 64;
+  --corner-radius: 72;
   mask-image: paint(smooth-corners);
   padding: var(--space-xl) var(--space-md);
   display: flex;

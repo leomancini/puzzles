@@ -5,7 +5,7 @@
   padding: var(--tile-gap);
   background: var(--board-bg);
   --smooth-corners: 5;
-  --corner-radius: 64;
+  --corner-radius: 72;
   mask-image: paint(smooth-corners);
   width: 100%;
   aspect-ratio: 1;
@@ -45,7 +45,7 @@
   align-items: center;
   justify-content: center;
   --smooth-corners: 5;
-  --corner-radius: 58;
+  --corner-radius: 60;
   mask-image: paint(smooth-corners);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
