@@ -269,7 +269,7 @@ body.lock-scroll {
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
-  padding: 120px var(--space-lg) var(--space-md);
+  padding: var(--space-md) var(--space-lg) var(--space-lg);
 }
 
 @media (min-width: 481px) {
