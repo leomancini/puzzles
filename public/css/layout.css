@@ -62,11 +62,11 @@ body.lock-scroll {
 
 .screen-content-top {
   justify-content: flex-start;
-  padding-top: calc(var(--space-md) + 8px);
+  padding-top: calc(var(--space-md) + 18px);
 }
 
 #username-form {
-  padding-top: var(--space-lg);
+  padding-top: calc(var(--space-lg) + 10px);
 }
 
 /* Buttons */
@@ -260,7 +260,7 @@ body.lock-scroll {
   align-items: center;
   justify-content: center;
   padding: var(--space-md) var(--space-lg);
-  padding-bottom: 0;
+  padding-bottom: var(--space-lg);
 }
 
 /* Game footer */
@@ -396,6 +396,11 @@ body.lock-scroll {
 }
 
 @keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-once {
+  from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 

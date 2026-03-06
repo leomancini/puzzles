@@ -78,11 +78,12 @@ function showScreen(name, { push = true, back = false } = {}) {
   } else {
     const hasTransitions = !document.body.classList.contains('no-transition');
     if (hasTransitions) {
-      target.classList.add('enter-right');
+      target.style.transition = 'none';
+      target.style.transform = 'translateX(30px)';
       target.classList.add('active');
-      requestAnimationFrame(() => {
-        target.classList.remove('enter-right');
-      });
+      void target.offsetWidth;
+      target.style.removeProperty('transition');
+      target.style.removeProperty('transform');
     } else {
       target.classList.add('active');
     }
@@ -352,7 +353,11 @@ document.getElementById('btn-back').addEventListener('click', () => {
   showScreen('select', { back: true });
 });
 
-document.getElementById('btn-new-game').addEventListener('click', () => {
+const btnNewGame = document.getElementById('btn-new-game');
+btnNewGame.addEventListener('click', () => {
+  btnNewGame.style.animation = 'none';
+  void btnNewGame.offsetWidth;
+  btnNewGame.style.animation = 'spin-once 400ms ease';
   if (currentGame) {
     currentGame.init();
     currentMoves = 0;
