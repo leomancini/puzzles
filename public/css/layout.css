@@ -302,6 +302,7 @@ body.lock-scroll {
   align-items: center;
   gap: var(--space-sm);
   transition: transform var(--transition-fast);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 .game-card:active {
