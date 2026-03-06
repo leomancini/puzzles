@@ -265,6 +265,12 @@ body.lock-scroll {
   padding-bottom: calc(var(--space-lg) + 40px);
 }
 
+@media (max-width: 480px) {
+  .game-container {
+    padding-bottom: var(--space-lg);
+  }
+}
+
 /* Game footer */
 .game-footer {
   display: flex;

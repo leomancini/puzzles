@@ -393,7 +393,8 @@ btnBackUsername.addEventListener('click', () => {
 });
 
 // --- Init ---
-(function init() {
+(async function init() {
+  if (window.__paintReady) await window.__paintReady;
   const saved = getUsername();
   if (!saved) {
     showUsernameScreen(false, { push: false });
