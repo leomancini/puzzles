@@ -236,7 +236,7 @@ body.lock-scroll {
   justify-self: start;
   position: relative;
   top: 1px;
-  margin-left: var(--space-xs);
+  margin-left: 12px;
 }
 
 .game-header > :last-child {

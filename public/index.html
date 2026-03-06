@@ -125,9 +125,12 @@
 
   <script type="module" src="/js/app.js?v=20260306a"></script>
   <script>
-    if (CSS.paintWorklet) {
+    (async function() {
+      if (!CSS.paintWorklet) {
+        await import('/js/css-paint-polyfill.js');
+      }
       CSS.paintWorklet.addModule('/js/smooth-corners.js');
-    }
+    })();
   </script>
   <script>
     if ('serviceWorker' in navigator) {
