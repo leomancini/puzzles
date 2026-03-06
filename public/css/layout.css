@@ -186,6 +186,7 @@ body.lock-scroll {
 .app-title-small {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
+  margin-left: 4px;
 }
 
 .subtitle {
@@ -240,7 +241,7 @@ body.lock-scroll {
 
 .game-header > :last-child {
   justify-self: end;
-  margin-right: var(--space-sm);
+  margin-right: 16px;
 }
 
 .game-header .btn-text {
@@ -261,7 +262,7 @@ body.lock-scroll {
   align-items: center;
   justify-content: center;
   padding: var(--space-md) var(--space-lg);
-  padding-bottom: var(--space-lg);
+  padding-bottom: calc(var(--space-lg) + 40px);
 }
 
 /* Game footer */
@@ -295,7 +296,9 @@ body.lock-scroll {
 
 .game-card {
   background: var(--color-surface);
-  border-radius: var(--radius-xl);
+  --smooth-corners: 5;
+  --corner-radius: 64;
+  mask-image: paint(smooth-corners);
   padding: var(--space-xl) var(--space-md);
   display: flex;
   flex-direction: column;
@@ -408,7 +411,7 @@ body.lock-scroll {
 .user-badge {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: 12px;
   height: 44px;
   color: var(--color-primary);
   transition: transform var(--transition-fast);
@@ -426,6 +429,7 @@ body.lock-scroll {
 .user-badge svg {
   position: relative;
   top: 1px;
+  margin-right: 4px;
 }
 
 /* Win rank */

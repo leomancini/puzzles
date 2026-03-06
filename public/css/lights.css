@@ -4,8 +4,9 @@
   gap: var(--tile-gap);
   padding: var(--tile-gap);
   background: var(--board-bg);
-  border-radius: var(--radius-xl);
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  --smooth-corners: 5;
+  --corner-radius: 64;
+  mask-image: paint(smooth-corners);
   width: 100%;
   aspect-ratio: 1;
 }
@@ -13,7 +14,9 @@
 .lights-cell {
   aspect-ratio: 1;
   border: none;
-  border-radius: var(--tile-radius);
+  --smooth-corners: 5;
+  --corner-radius: 56;
+  mask-image: paint(smooth-corners);
   background: var(--tile-color);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;

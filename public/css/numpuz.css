@@ -1,8 +1,9 @@
 .numpuz-board {
   position: relative;
   background: var(--board-bg);
-  border-radius: var(--radius-xl);
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  --smooth-corners: 5;
+  --corner-radius: 64;
+  mask-image: paint(smooth-corners);
   padding: 0;
   width: 100%;
   max-height: calc(100vh - 200px);
@@ -19,7 +20,9 @@
   font-weight: var(--font-weight-bold);
   color: var(--tile-text-color);
   background: var(--tile-color);
-  border-radius: var(--tile-radius);
+  --smooth-corners: 5;
+  --corner-radius: 56;
+  mask-image: paint(smooth-corners);
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;

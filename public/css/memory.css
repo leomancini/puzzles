@@ -4,8 +4,9 @@
   gap: var(--tile-gap);
   padding: var(--tile-gap);
   background: var(--board-bg);
-  border-radius: var(--radius-xl);
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  --smooth-corners: 5;
+  --corner-radius: 64;
+  mask-image: paint(smooth-corners);
   width: 100%;
   aspect-ratio: 1;
 }
@@ -43,7 +44,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--tile-radius);
+  --smooth-corners: 5;
+  --corner-radius: 56;
+  mask-image: paint(smooth-corners);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   font-weight: var(--font-weight-bold);
