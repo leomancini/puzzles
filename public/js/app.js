@@ -71,19 +71,33 @@ function showScreen(name, { push = true, back = false } = {}) {
   if (back) {
     target.style.transition = 'none';
     target.style.transform = 'translateX(-30px)';
+    target.style.opacity = '0';
     target.classList.add('active');
     void target.offsetWidth;
-    target.style.removeProperty('transition');
+    target.style.transition = 'transform 250ms ease, opacity 200ms ease 100ms';
     target.style.removeProperty('transform');
+    target.style.removeProperty('opacity');
+    target.addEventListener('transitionend', function cleanup(e) {
+      if (e.propertyName !== 'opacity') return;
+      target.removeEventListener('transitionend', cleanup);
+      target.style.removeProperty('transition');
+    });
   } else {
     const hasTransitions = !document.body.classList.contains('no-transition');
     if (hasTransitions) {
       target.style.transition = 'none';
       target.style.transform = 'translateX(30px)';
+      target.style.opacity = '0';
       target.classList.add('active');
       void target.offsetWidth;
-      target.style.removeProperty('transition');
+      target.style.transition = 'transform 250ms ease, opacity 200ms ease 100ms';
       target.style.removeProperty('transform');
+      target.style.removeProperty('opacity');
+      target.addEventListener('transitionend', function cleanup(e) {
+        if (e.propertyName !== 'opacity') return;
+        target.removeEventListener('transitionend', cleanup);
+        target.style.removeProperty('transition');
+      });
     } else {
       target.classList.add('active');
     }

@@ -4,7 +4,8 @@
   gap: var(--tile-gap);
   padding: var(--tile-gap);
   background: var(--board-bg);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xl);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
   width: 100%;
   aspect-ratio: 1;
 }

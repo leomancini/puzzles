@@ -111,7 +111,7 @@ export class NumPuz {
     const row = Math.floor(index / GRID_SIZE);
     const col = index % GRID_SIZE;
     // gap between tiles and from edge to tile should be equal
-    const gap = 4;
+    const gap = 6;
     // Total gaps: edge + (GRID_SIZE - 1) inner gaps + edge = GRID_SIZE + 1 gaps
     // But we use percentages, so express edge as px offset and tile size subtracts its share
     const totalGaps = GRID_SIZE + 1; // 5 gaps for 4 tiles

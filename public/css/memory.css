@@ -4,7 +4,8 @@
   gap: var(--tile-gap);
   padding: var(--tile-gap);
   background: var(--board-bg);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xl);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
   width: 100%;
   aspect-ratio: 1;
 }
@@ -50,14 +51,15 @@
 
 .memory-card-front {
   background: var(--tile-color);
-  color: var(--color-text-muted);
-  font-size: 2rem;
+  color: var(--color-surface-raised);
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-normal);
 }
 
 .memory-card-back {
   background: var(--tile-color);
   color: var(--color-primary);
-  font-size: 2.25rem;
+  font-size: 3rem;
   transform: rotateY(180deg);
 }
 

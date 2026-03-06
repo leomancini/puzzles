@@ -13,7 +13,7 @@ body {
   flex-direction: column;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--transition-normal), transform var(--transition-normal);
+  transition: opacity var(--transition-fast), transform var(--transition-normal);
 }
 
 .screen.active {
@@ -294,7 +294,7 @@ body.lock-scroll {
 
 .game-card {
   background: var(--color-surface);
-  border-radius: 32px;
+  border-radius: var(--radius-xl);
   padding: var(--space-xl) var(--space-md);
   display: flex;
   flex-direction: column;
