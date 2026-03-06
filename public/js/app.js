@@ -74,7 +74,7 @@ function showScreen(name, { push = true, back = false } = {}) {
     target.style.opacity = '0';
     target.classList.add('active');
     void target.offsetWidth;
-    target.style.transition = 'transform 250ms ease, opacity 200ms ease 100ms';
+    target.style.transition = 'transform 350ms ease, opacity 250ms ease 150ms';
     target.style.removeProperty('transform');
     target.style.removeProperty('opacity');
     target.addEventListener('transitionend', function cleanup(e) {
@@ -90,7 +90,7 @@ function showScreen(name, { push = true, back = false } = {}) {
       target.style.opacity = '0';
       target.classList.add('active');
       void target.offsetWidth;
-      target.style.transition = 'transform 250ms ease, opacity 200ms ease 100ms';
+      target.style.transition = 'transform 350ms ease, opacity 250ms ease 150ms';
       target.style.removeProperty('transform');
       target.style.removeProperty('opacity');
       target.addEventListener('transitionend', function cleanup(e) {

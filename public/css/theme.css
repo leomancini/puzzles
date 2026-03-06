@@ -29,8 +29,8 @@
   --font-weight-normal: 400;
   --font-weight-bold: 700;
 
-  --transition-fast: 150ms ease;
-  --transition-normal: 250ms ease;
+  --transition-fast: 200ms ease;
+  --transition-normal: 350ms ease;
 
   --tile-gap: 6px;
   --tile-radius: 26px;

@@ -59,7 +59,7 @@
 .memory-card-back {
   background: var(--tile-color);
   color: var(--color-primary);
-  font-size: 3rem;
+  font-size: 2.5rem;
   transform: rotateY(180deg);
 }
 
